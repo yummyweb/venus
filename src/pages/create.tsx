@@ -1,5 +1,5 @@
 import { Navbar } from "../components/Navbar";
-import { Text, FormControl, FormLabel, NumberInputStepper, NumberInput, NumberIncrementStepper, NumberDecrementStepper, NumberInputField, FormHelperText, Input, Flex } from "@chakra-ui/react"
+import { Button, InputGroup, InputLeftAddon, Text, FormControl, FormLabel, NumberInputStepper, NumberInput, NumberIncrementStepper, NumberDecrementStepper, NumberInputField, FormHelperText, Input, Flex } from "@chakra-ui/react"
 
 export default function Create() {
 	return (
@@ -24,10 +24,19 @@ export default function Create() {
 					<FormHelperText>Maximum number of tickets for your event.</FormHelperText>
 				</FormControl>
 				<FormControl mt={10}>
-					  <FormLabel htmlFor='place'>Place</FormLabel>
-					  <Input id='place' type='text' />
-					  <FormHelperText>The place where the event is taking place.</FormHelperText>
+					 <FormLabel htmlFor='place'>Place</FormLabel>
+					 <Input id='place' type='text' />
+				     <FormHelperText>The place where the event is taking place.</FormHelperText>
 				</FormControl>
+				<FormControl mt={10}>
+					 <FormLabel htmlFor='cost'>Cost</FormLabel>
+					 <InputGroup>
+						<InputLeftAddon children='$' />
+					 	<Input id='cost' type='text' />
+					 </InputGroup>
+					 <FormHelperText>Cost for each ticket in USD.</FormHelperText>
+				</FormControl>
+				<Button colorScheme="teal" mt={12} width="30%">Create Event</Button>
 			</Flex>
 		</>
 	)
