@@ -21,7 +21,7 @@ export const Navbar: React.FC = () => {
 		if (!wallet.isSignedIn()) {
 			wallet.requestSignIn(
 				"example-contract.testnet",
-				"Venus - Ticketing App"
+				"Buzzle - Ticketing App"
 			)
 		}
 	}
@@ -30,7 +30,7 @@ export const Navbar: React.FC = () => {
 		<Flex bg={useColorModeValue('gray.100', 'gray.900')} height="9vh" justifyContent="space-between" alignItems="center" px={20}>
 			<Flex alignItems="center" cursor="pointer" onClick={() => Router.push("/")}>
 				<Image width={50} height={50} src={logo} />
-				<Text ml={2} fontSize="xl">Venus</Text>
+				<Text ml={2} fontSize="xl">Buzzle</Text>
 			</Flex>
 			<Flex alignItems="center" justifyContent="space-evenly" width="40%">
 				<Text fontSize="xl">My Tickets</Text>
