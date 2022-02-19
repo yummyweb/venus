@@ -33,7 +33,7 @@ export const Navbar: React.FC = () => {
 				<Text ml={2} fontSize="xl">Buzzle</Text>
 			</Flex>
 			<Flex alignItems="center" justifyContent="space-evenly" width="40%">
-				<Text fontSize="xl">My Tickets</Text>
+				<Text fontSize="xl" cursor="pointer" onClick={() => Router.push("/tickets")}>My Tickets</Text>
 				<Text fontSize="xl" cursor="pointer" onClick={login}>{ wallet && wallet.isSignedIn() ? wallet.getAccountId() : "Login" }</Text>
 				<DarkModeSwitch />
 			</Flex>
