@@ -21,16 +21,16 @@ export const Navbar: React.FC = () => {
 		if (!wallet.isSignedIn()) {
 			wallet.requestSignIn(
 				"example-contract.testnet",
-				"Buzzle - Ticketing App"
+				"Debook - Ticketing App"
 			)
 		}
 	}
 
 	return (
-		<Flex bg={useColorModeValue('gray.100', 'gray.900')} height="9vh" justifyContent="space-between" alignItems="center" px={20}>
+		<Flex as="header" position="fixed" w="100%" style={{ top: "0px" }} backgroundColor={useColorModeValue("rgba(255, 255, 255, 0.8)", "rgba(26, 32, 44, 0.8)")} backdropFilter="saturate(180%) blur(5px)" zIndex={200} height="9vh" justifyContent="space-between" alignItems="center" px={20}>
 			<Flex alignItems="center" cursor="pointer" onClick={() => Router.push("/")}>
-				<Image width={50} height={50} src={logo} />
-				<Text ml={2} fontSize="xl">Buzzle</Text>
+				<Image width={35} height={35} src={logo} />
+				<Text ml={2} fontSize="xl">Debook</Text>
 			</Flex>
 			<Flex alignItems="center" justifyContent="space-evenly" width="40%">
 				<Text fontSize="xl" cursor="pointer" onClick={() => Router.push("/tickets")}>My Tickets</Text>

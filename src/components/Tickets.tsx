@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react"
-import { Button, Progress, Skeleton, Flex, Grid, GridItem, Text } from "@chakra-ui/react"
+import { Button, Progress, Skeleton, Flex, Grid, GridItem, Text, Box, Image, IconButton } from "@chakra-ui/react"
 import { SingleTicket } from "./SingleTicket"
 import useContract from "../hooks/useContract"
 import useNear from "../hooks/useNear"
 import html2canvas from 'html2canvas'
+import * as htmlToImage from 'html-to-image'
 import { BsTwitter } from "react-icons/bs"
 
 export const TicketList: React.FC = () => {
@@ -51,45 +52,58 @@ export const TicketList: React.FC = () => {
     }
 
     return (
-        <Grid templateColumns='repeat(3, 1fr)' mt={10} p={10} gap={6}>
-            {!events ? (
-            <>
-                <GridItem display="flex" flexDirection="column" alignItems="center" justifyContent="space-evenly" w='100%' h='200' bg='gray.200' shadow="sm" borderRadius={10}>
-                    <Skeleton borderRadius={10} height="full" width="full" />
-                </GridItem>
-                <GridItem display="flex" flexDirection="column" alignItems="center" justifyContent="space-evenly" w='100%' h='200' bg='gray.200' shadow="sm" borderRadius={10}>
-                    <Skeleton borderRadius={10} height="full" width="full" />
-                </GridItem>
-            </>) : (
-             <>
-                {events.map(({ event, id }) => {
-                return (
-                    <>
-                        {event.ipfsPath ? (<GridItem display="flex" flexDirection="column" alignItems="center" w='100%' h='430' bg='gray.200' shadow="sm" borderRadius={10}>
-                            <img src={`https://ipfs.infura.io/ipfs/${event.ipfsPath}`} style={{ height: 200, width: "100%", borderTopLeftRadius: 10, borderTopRightRadius: 10 }} />
-                            <Flex mt={50} flexDirection="column" alignItems="center">
-                                <Text fontWeight="bold" fontSize="2xl">{ event.name.toLowerCase().replace( /\b./g, function(a){ return a.toUpperCase(); }) }</Text>
-                            </Flex>
-                            <Flex w="50%" justifyContent="space-evenly" mt={7}>
-                                <Button onClick={() => exportTicket(event.name.replace(/ /g,'') + id.toString())} colorScheme="messenger" variant="ghost">Export</Button>
-                                <Button ml={5} colorScheme="twitter" onClick={() => window.open("https://twitter.com/share?text=This is the demo for Buzzle! Check it out at &url=https://buzzletickets.com", '_blank').focus()}><BsTwitter color="white" size={200} style={{ marginRight: 10 }} /> Share on Twitter</Button>
-                            </Flex>
-                            <div id={"hidden-" + event.name.replace(/ /g, '') + id.toString()} style={{ display: "none" }}>
-                                <SingleTicket id={event.name.replace(/ /g,'') + id.toString()} details={{
-                                    eventName: event.name.toLowerCase().replace( /\b./g, function(a){ return a.toUpperCase(); }),
-                                    location: event.place,
-                                    creator: event.sender,
-                                    id: id,
-                                    image: `https://ipfs.infura.io/ipfs/${event.ipfsPath}`
-                                }} />
-                            </div>
- 
-                        </GridItem>) : null}
-                    </>
-               )})}
-            </>
-                
-            )}
-        </Grid>
+        <Box>
+            <Grid templateColumns='repeat(3, 1fr)' style={{ margin: "80px auto"}} p={10} gap={6}>
+                {!events ? (
+                <>
+                    <GridItem display="flex" flexDirection="column" alignItems="center" justifyContent="space-evenly" w='100%' h='200' bg='gray.200' shadow="sm" borderRadius={10}>
+                        <Skeleton borderRadius={10} height="full" width="full" />
+                    </GridItem>
+                    <GridItem display="flex" flexDirection="column" alignItems="center" justifyContent="space-evenly" w='100%' h='200' bg='gray.200' shadow="sm" borderRadius={10}>
+                        <Skeleton borderRadius={10} height="full" width="full" />
+                    </GridItem>
+                </>) : (
+                 <>
+                    {events.map(({ event, id }) => {
+                    return (
+                        <>
+                            {event.ipfsPath ? (<GridItem display="flex" flexDirection="column" alignItems="center" w='100%' h='430' bg='gray.200' shadow="sm" borderRadius={10}>
+                                <Box bg="black" overflow="hidden" style={{ height: 200, width: "100%", borderTopLeftRadius: 10, borderTopRightRadius: 10 }} >
+                                    <Image 
+                                        src={`https://ipfs.infura.io/ipfs/${event.ipfsPath}`}
+                                        style={{ height: "100%", width: "100%" }} 
+                                        transition="0.3s ease-in-out"
+                                        objectFit="contain"
+                                        _hover={{
+                                            transform: 'scale(1.05)',
+                                        }}
+                                        transform="scale(1.0)"
+                                    />
+                                </Box>
+                                <Flex mt={50} flexDirection="column" alignItems="center">
+                                    <Text fontWeight="bold" fontSize="2xl">{ event.name.toLowerCase().replace( /\b./g, function(a){ return a.toUpperCase(); }) }</Text>
+                                </Flex>
+                                <Flex w="60%" justifyContent="space-evenly" mt={7}>
+                                    <Button onClick={() => exportTicket(event.name.replace(/ /g,'') + id.toString())} colorScheme="messenger" variant="ghost">Export</Button>
+                                    <Button leftIcon={<BsTwitter />} ml={5} colorScheme="twitter" onClick={() => window.open(`https://twitter.com/share?text=I just booked a ticket for ${event.name.toLowerCase().replace( /\b./g, function(a){ return a.toUpperCase(); })} at &url=https://venustickets.com`, '_blank').focus()}>Share on Twitter</Button>
+                                </Flex>
+                                <div id={"hidden-" + event.name.replace(/ /g, '') + id.toString()} style={{ display: "none" }}>
+                                    <SingleTicket id={event.name.replace(/ /g,'') + id.toString()} details={{
+                                        eventName: event.name.toLowerCase().replace( /\b./g, function(a){ return a.toUpperCase(); }),
+                                        location: event.place,
+                                        creator: event.sender,
+                                        id: id,
+                                        image: `http://localhost:3000/api/getRemoteImage/${event.ipfsPath}`
+                                    }} />
+                                </div>
+     
+                            </GridItem>) : null}
+                        </>
+                   )})}
+                </>
+                    
+                )}
+            </Grid>
+        </Box>
     )
 }

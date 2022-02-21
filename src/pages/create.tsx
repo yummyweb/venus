@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react"
 import useNear from "../hooks/useNear" 
 import useContract from "../hooks/useContract"
 import { Navbar } from "../components/Navbar";
-import { Icon, Button, InputGroup, InputLeftAddon, Text, FormControl, FormLabel, NumberInputStepper, NumberInput, NumberIncrementStepper, NumberDecrementStepper, NumberInputField, FormHelperText, Input, Flex } from "@chakra-ui/react"
+import { Icon, Button, InputGroup, InputLeftAddon, Text, useColorModeValue, FormControl, FormLabel, NumberInputStepper, NumberInput, NumberIncrementStepper, NumberDecrementStepper, NumberInputField, FormHelperText, Input, Flex } from "@chakra-ui/react"
 import { create } from "ipfs-http-client" 
 import { FiFile } from "react-icons/fi"
 
@@ -49,10 +49,10 @@ export default function Create() {
         const file = e.target.files[0]
         try {
             const added = await client.add(file)
-            console.log(added.path)
             setIPFSPath(added.path)
         }
-        catch {
+        catch (e) {
+			console.log(e)
             alert("Error while uploading file")
         }
     }
@@ -64,12 +64,12 @@ export default function Create() {
 				<Text fontWeight="bold" fontSize="3xl">Create Event</Text>
 				<FormControl mt={10}>
 			  		<FormLabel htmlFor='name'>Name</FormLabel>
-			  		<Input id='name' value={name} onChange={e => setName(e.target.value)} type='text' />
+			  		<Input focusBorderColor={useColorModeValue("red.400", "red.500")} id='name' value={name} onChange={e => setName(e.target.value)} type='text' />
 			  		<FormHelperText>Name for your event.</FormHelperText>
 				</FormControl>
 				<FormControl mt={10}>
 					<FormLabel htmlFor='tickets'>Number of Tickets</FormLabel>
-					<NumberInput max={25000} min={10}>
+					<NumberInput focusBorderColor={useColorModeValue("red.400", "red.500")} max={25000} min={10}>
 						<NumberInputField id='tickets' value={numOfTickets} onChange={e => setNumOfTickets(parseInt(e.target.value))} />
 				    	<NumberInputStepper>
 							<NumberIncrementStepper />
@@ -80,19 +80,19 @@ export default function Create() {
 				</FormControl>
 				<FormControl mt={10}>
 					 <FormLabel htmlFor='place'>Place</FormLabel>
-					 <Input id='place' type='text' value={place} onChange={e => setPlace(e.target.value)} />
+					 <Input focusBorderColor={useColorModeValue("red.400", "red.500")} id='place' type='text' value={place} onChange={e => setPlace(e.target.value)} />
 				     <FormHelperText>The place where the event is taking place.</FormHelperText>
 				</FormControl>
 				<FormControl mt={10}>
 					 <FormLabel htmlFor='cost'>Cost</FormLabel>
 					 <InputGroup>
 						<InputLeftAddon children='$' />
-					 	<Input id='cost' type='text' value={cost} onChange={e => setCost(e.target.value)} />
+					 	<Input focusBorderColor={useColorModeValue("red.400", "red.500")} id='cost' type='text' value={cost} onChange={e => setCost(e.target.value)} />
 					 </InputGroup>
 					 <FormHelperText>Cost for each ticket in USD.</FormHelperText>
 				</FormControl>
                 <FormControl mt={10}>
-                    <FormLabel>File input</FormLabel>
+                    <FormLabel>Poster</FormLabel>
                     <input type="file" ref={e => {
                         inputRef.current = e
                     }} multiple={false} hidden accept="image/*" onChange={onFileChange} />
@@ -100,7 +100,7 @@ export default function Create() {
                         Upload
                     </Button>
                 </FormControl>
-				<Button onClick={createEvent} colorScheme="teal" mt={12} width="30%">Create Event</Button>
+				<Button _hover={{ bg: "red.500" }} onClick={createEvent} bg="red.400" color="white" mt={12} width="30%">Create Event</Button>
 			</Flex>
 		</>
 	)

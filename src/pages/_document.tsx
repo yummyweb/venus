@@ -6,7 +6,9 @@ export default class Document extends NextDocument {
     return (
       <Html>
         <Head>
-          <title>Buzzle - Book Tickets</title>
+          <title>Debook - Book Tickets</title>
+          <link rel="icon" type="image/png" href="/logo.png" />
+          <link rel="apple-touch-icon" type="image/png" href="/logo.png" />
           <link
             href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap"
             rel="stylesheet"
