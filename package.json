@@ -24,7 +24,7 @@
     "html-to-image": "^1.9.0",
     "html2canvas": "^1.4.1",
     "install": "^0.13.0",
-    "ipfs-http-client": "^56.0.1",
+    "ipfs-http-client": "55.0.0",
     "near-api-js": "^0.44.2",
     "next": "latest",
     "npm": "^8.4.0",
