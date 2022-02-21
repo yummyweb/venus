@@ -60,7 +60,7 @@ export default function Create() {
 	return (
 		<>
 			<Navbar />
-			<Flex flexDirection="column" m={20}>
+			<Flex flexDirection="column" m={20} width="60%">
 				<Text fontWeight="bold" fontSize="3xl">Create Event</Text>
 				<FormControl mt={10}>
 			  		<FormLabel htmlFor='name'>Name</FormLabel>
